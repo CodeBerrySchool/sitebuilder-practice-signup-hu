@@ -1,0 +1,294 @@
+/**
+ * ÁTTEKINTÉS
+ *
+ * Ez a fájl írja le az oldalt felépítő komponenseket. Onnantól, hogy
+ * milyen a belső elrendezésük, egészen odáig, hogy milyen a szövegük
+ * színe, stb.
+ *
+ * Eddig is láthattad, de itt aztán nagyon erősen érvényesül a BEM
+ * (Block - Element - Modifier) gondolkodás a kódban. Ha ez ismeretlen
+ * számodra, javasoljuk, hogy olvasd el ezt a részt Harry Roberts
+ * CSS guideline-jában: https://cssguidelin.es/#bem-like-naming.
+ */
+
+
+/**
+ * TARTALOMJEGYZÉK
+ *
+ * 1. GOMBOK
+ *
+ * 2. PROMÓ
+ *
+ * 3. REGISZTRÁCIÓS/BEJELENTKEZÉSI FORM
+ *
+ * 4. LÁBLÉC
+ */
+
+
+
+
+
+/*------------------------------------*\
+  #GOMBOK
+\*------------------------------------*/
+
+/**
+ * 1. Eltávolítjuk a bordert, hogy később ne zavarjon be a padding számításainkba.
+ * Plusz egy teli gombon amúgy is felesleges a border. :)
+ *
+ */
+
+.button {
+  display:        inline-block;
+  border:         .2222vh solid;
+  border-radius:  24px;
+  text-align:     center;
+}
+
+  .button--primary-solid {
+    border:           0; /* [1] */
+    background-color: #6200ea;
+    color:            #ffffff;
+  }
+
+  .button--primary-solid:visited { color: #ffffff; }
+
+  .button--primary-hollow {
+    border-color:     #6200ea;
+    background-color: transparent;
+    color:            #6200ea;
+  }
+
+  .button--primary-hollow:visited { color: #6200ea; }
+
+
+
+
+
+/*------------------------------------*\
+  #PROMÓ
+\*------------------------------------*/
+
+/**
+ * 1. A komponens elrendezéséhez a position tulajdonságot választottuk.
+ * A relative containerhez képest pozicionáltuk a logót és a blurböket
+ * (promószövegek plusz piktogramok). Ha szeretnél többet olvasni erről
+ * a technikáról, nézd át a „Minden a helyén” c. modulunkat.
+ *
+ * 2. Ezzel a módszerrel tudsz dolgokat könnyedén középre igazítani.
+ * Itt találsz erről több infót, ha érdekel:
+ * https://www.w3schools.com/howto/howto_css_center-vertical.asp
+ *
+ * 3. Ez a width deklaráció azért szükséges, hogy ne törjön új sorba a
+ * blurbök szövege véletlen. A media query szerepe, hogy ezt kisebb
+ * képernyőkön is biztosítsa.
+ *
+ * 4. Ugyanazzal a szabályszett-sorozattal tesszük kör alakúvá az ikonokat,
+ * mint a Contact oldal esetében.
+ */
+
+.promo {
+  position:         relative; /* [1] */
+  background-color: #6200ea;
+}
+
+  .promo__logo {
+    position: absolute; /* [1] */
+    top:      1.6667vh;
+    left:     1.875vw;
+  }
+
+  .promo__blurb-container {
+    position:  absolute; /* [1] */
+    top:       50%; /* [2] */
+    left:      50%; /* [2] */
+    transform: translate(-50%, -50%); /* [2] */
+    width:     25.6125vw; /* [3] */
+  }
+
+  @media only screen and (max-width: 1365px) {
+    .promo__blurb-container {
+      width: 33vw; /* [3] */
+    }
+  }
+
+  .blurb { margin-bottom: 6.6667vh; }
+
+  .blurb:last-child { margin-bottom: 0; }
+
+    .blurb__icon-wrapper,
+    .blurb__text {
+      display: inline-block;
+    }
+
+    .blurb__icon-wrapper { /* [4] */
+      width:            2.5vw;
+      height:           2.5vw;
+      padding:          .625vw;
+      border-radius:    50%;
+      margin-right:     1.25vw;
+      background-color: #ffffff;
+      text-align:       center;
+    }
+
+      .blurb__icon { /* [4] */
+        color:     #6200ea;
+        font-size: 2.2222vh;
+      }
+
+    .blurb__text {
+      margin:    0;
+      color:     #ffffff;
+      font-size: 3.3333vh;
+    }
+
+
+
+
+
+/*------------------------------------*\
+#REGISZTRÁCIÓS/BEJELENTKEZÉSI FORM
+\*------------------------------------*/
+
+/**
+ * 1. Itt is a position absolute+relative trükkel oldjuk meg a kártya középre
+ * rendezését.
+ *
+ * 2. Ez a szabályszett hozzáad egy pszeudoelemet az oldalhoz, aminek semmi
+ * más dolga nincs, mint megjeleníteni a monokróm háttérképet a form mögött.
+ *
+ * 3. Ez a magasság- és szélességdeklaráció szükséges ahhoz, hogy a kártya
+ * az eredeti designnal megegyező arányokkal jelenjen meg. Kis képernyőn
+ * a magasságot kikapcsoljuk.
+ *
+ * 4. Az inputok alapértelmezetten inline elemek. Mielőtt elkezdhetnénk
+ * manipulálni a margin, padding, stb. értékeiket, block vagy inline-block
+ * elemmé kell őket alakítanunk.
+ *
+ * 5. Először lenullázzuk az input saját inherens borderét.
+ *
+ * 6. Adunk az inputnak egy saját, alapállapotban átlátszó alsó bordert. Ezt
+ * fogjuk később felhasználni arra, hogy a lila sáv megjelenjen focusra. Azért
+ * adunk átlátszó bordert alapértelmezetten, hogy csak ennek színe változzon,
+ * és ne ugráljon a felület, ahogy azt tenné, ha focusra adnánk hozzá az egész
+ * bordert.
+ *
+ * 7. Ez a szabályszett formázza a submit gombokat, úgy, hogy kiegészíti a
+ * .button, .button--primary-solid és .button--primary-hollow szabályokat.
+ *
+ */
+
+.signup { position: relative; } /* [1] */
+
+  .signup::before { /* [2] */
+    content:          '';
+    position:         absolute;
+    top:              0;
+    left:             0;
+    width:            100%;
+    height:           100%;
+    background-image: url('../assets/bailey-zindel-396398-unsplash.jpg');
+    background-size:  cover;
+    filter:           grayscale(100%);
+  }
+
+  .signup__form-container {
+    position:         absolute; /* [1] */
+    top:              50%; /* [1] */
+    left:             50%; /* [1] */
+    transform:        translate(-50%, -50%); /* [1] */
+    width:            33.75vw; /* [3] */
+    height:           33.75vw; /* [3] */
+    padding:          6.6667vh 3.75vw 7.2222vh;
+    border-radius:    .9375vw;
+    background-color: #ffffff;
+  }
+
+  @media only screen and (max-width: 1365px) {
+    .signup__form-container {
+      height: auto; /* [3] */
+    }
+  }
+
+    .signup__cta { font-size: 4.4444vh; }
+
+    .signup__input-field {
+      display:          block; /* [4] */
+      width:            100%;
+      padding:          1.7778vh 0 1.4444vh 1.5vw;
+      border:           0; /* [5] */
+      border-bottom:    0.3333vh solid; /* [6] */
+      border-color:     transparent; /* [6] */
+      margin-bottom:    1.6667vh;
+      background-color: #f4f3f5;
+      outline:          none;
+    }
+
+    .signup__input-field:nth-of-type(2) { margin-bottom: 1.1111vh; }
+
+    .signup__input-field:focus { border-bottom-color: #6200ea; }
+
+      .signup__input-field::placeholder {
+        font-weight: bold;
+        opacity:     .25;
+      }
+
+    .signup__forgotten-password-container { text-align: right; }
+
+      .signup__forgotten-password-link         { color: #6200ea; }
+
+      .signup__forgotten-password-link:visited { color: #6200ea; }
+
+    .signup__submit--signup,
+    .signup__submit--login { /* [7] */
+      width:         100%;
+      padding:       2vh 0;
+      margin-bottom: 1.6667vh;
+    }
+
+    .signup__submit--login {
+      padding:        1.7777vh 0;
+      margin-bottom:  0;
+    }
+
+    .signup__forgotten-password-link,
+    .signup__submit--signup,
+    .signup__submit--login { /* [7] */
+      font-size:      1.3333vh;
+      font-weight:    bold;
+      text-transform: uppercase;
+      letter-spacing: .15vw;
+    }
+
+    .signup__cta,
+    .signup__forgotten-password-container {
+      margin-bottom: 3.3333vh;
+    }
+
+
+
+
+
+/*------------------------------------*\
+  #LÁBLÉC
+\*------------------------------------*/
+
+.footer {
+  height:           11.1111vh;
+  padding:          4.7778vh 0;
+  background-color: #211138;
+  text-align:       center;
+}
+
+  .footer__copyright {
+    color:          #b2acba;
+    font-size:      1.3333vh;
+    font-weight:    bold;
+    text-transform: uppercase;
+    letter-spacing: .15vw;
+  }
+
+  .footer__brand-name,
+  .footer__student-name {
+    color: #6200ea;
+  }

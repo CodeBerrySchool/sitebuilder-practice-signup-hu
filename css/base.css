@@ -1,0 +1,85 @@
+/**
+ * ÁTTEKINTÉS
+ *
+ * A projekt több különálló style sheetre van felbontva:
+ *
+ * normalize.min.css.....CSS reset, így a böngészők egyenlő állásból indulnak.
+ * base.css..............Globális szabályok és helperek.
+ * layout.css............Az oldal elrendezését kontrolláló CSS-szabályok.
+ * components.css........Az oldalt felépítő komponensek saját CSS-e.
+ */
+
+
+/**
+ * TARTALOMJEGYZÉK
+ *
+ * BEÁLLÍTÁSOK
+ * Box-sizing...........Az oldalunk globális alapbeállításai.
+ * Base font-size.......Az alap betűméret deklarálása.
+ * Margins..............Top és bottom marginok globális értékei.
+ * Anchor...............A linkek alapértelmezett beállításai.
+ *
+ * TIPOGRÁFIA
+ * Headingek............Tipográfiai stílusok.
+ */
+
+
+
+
+
+/*------------------------------------*\
+  #BEÁLLÍTÁSOK
+\*------------------------------------*/
+
+/**
+ * 1. Egy értelmesebb box-sizing modell.
+ *
+ * 2. Ez a szabály átállítja a base font-size értéket, amelyhez az összes
+ * rem egység viszonyít.
+ *
+ * 3. A Normalize.css beállít egy top és bottom margint ezeknek az elemeknek.
+ * Ez interferálna a saját elrendezésünkkel, úgyhogy ezzel a szabállyal felülírjuk.
+ *
+ * 4. A fő tipográfiai elemeinknek adunk itt egy általános bottom-margint,
+ * amellyel biztosítjuk, hogy az oldalunkon mindenhol ugyanolyanok legyenek
+ * a vízszintes margók alapértelmezetten. Ezt később esetenként felülírhatjuk.
+ */
+
+*    { box-sizing: border-box;} /* [1] */
+
+
+html { font-size:  14px; } /* [2] */
+
+
+h2, h6,
+p,
+ul {
+  margin: 0; /* [3] */
+}
+
+
+h2, h6 {
+  margin-bottom: 1.6666vh; /* [4] */
+}
+
+
+a {
+  text-decoration:  none;
+  cursor:           pointer;
+}
+
+
+
+
+
+/*------------------------------------*\
+  #TIPOGRÁFIA
+\*------------------------------------*/
+
+body {
+  color:        #211138;
+  font-family:  'Montserrat', sans-serif;
+}
+
+
+h2 { font-size: 4.4444vh; }
